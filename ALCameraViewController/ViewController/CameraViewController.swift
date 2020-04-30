@@ -497,24 +497,10 @@ open class CameraViewController: UIViewController {
         let spinner = showSpinner()
         cameraView.preview.isHidden = true
 
-		if allowsLibraryAccess {
-        _ = SingleImageSaver()
-            .setImage(image)
-            .onSuccess { [weak self] asset in
-                self?.layoutCameraResult(asset: asset)
-                self?.hideSpinner(spinner)
-            }
-            .onFailure { [weak self] error in
-                self?.toggleButtons(enabled: true)
-                self?.showNoPermissionsView(library: true)
-                self?.cameraView.preview.isHidden = false
-                self?.hideSpinner(spinner)
-            }
-            .save()
-		} else {
+		
 			layoutCameraResult(uiImage: image)
 			hideSpinner(spinner)
-		}
+		
     }
 	
     internal func close() {
